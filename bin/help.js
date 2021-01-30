@@ -4,14 +4,19 @@ const printCommandUsage = () => {
 };
 
 const printOptions = () => {
-  const argMap = {
-    "outfile <path>":
-      "The output filepath with or without extension. (required)",
-    "type <type>": "Either json, mjs or cjs. (optional)",
-  };
-  const maxLen = Math.max(...Object.keys(argMap).map((key) => key.length));
-  for (const [name, description] of Object.entries(argMap))
-    console.log(`--${name.padEnd(maxLen + 2)}${description}`);
+  const options = [
+    {
+      name: "outfile <path>",
+      description: "The output filepath with or without extension. (required)",
+    },
+    {
+      name: "type <type>",
+      description: "Either json, mjs or cjs. (optional)",
+    },
+  ];
+  const maxLen = Math.max(options.map((option) => option.description.length));
+  for (const option of options)
+    console.log(`--${option.name.padEnd(maxLen + 2)}${option.description}`);
 };
 
 /**
