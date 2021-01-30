@@ -12,12 +12,6 @@ export type Filetype = "json" | "mjs" | "cjs";
  */
 export type WriteOptions = {
   /**
-   * The output filepath with or without extension.
-   * Defaults to `"package-info"`.
-   */
-  outfile: string;
-
-  /**
    * Passed to `JSON.stringify()`.
    * Defaults to `null`.
    */
@@ -44,10 +38,9 @@ export type WriteOptions = {
  * Default values for `WriteOptions`.
  */
 export const defaultWriteOptions = Object.freeze({
-  outfile: "package-info.js",
   replacer: null,
   space: "  ",
-  filetype: "mjs",
+  filetype: "json",
   formatter: (code) => code,
 } as Required<WriteOptions>);
 
@@ -71,11 +64,13 @@ export const createFileContent = (
 /**
  * Returns a function that writes any JSON data to a file.
  * The file type can be specified in `options`.
+ *
+ * @param outfile The output filepath with or without extension.
  */
-export const write = (options?: WriteOptions) => async (
+export const write = (outfile: string, options: WriteOptions) => async (
   data: JSONData
 ): Promise<void> => {
-  const { outfile, filetype, replacer, space, formatter } = Object.assign(
+  const { filetype, replacer, space, formatter } = Object.assign(
     {},
     defaultWriteOptions,
     options
@@ -83,7 +78,8 @@ export const write = (options?: WriteOptions) => async (
 
   const dataString = JSON.stringify(data, replacer, space);
 
-  const normalizedPath = `${outfile}${path.extname(outfile) ? "" : filetype}`;
+  const adiitionalExtension = path.extname(outfile) ? "" : `.${filetype}`;
+  const normalizedPath = `${outfile}${adiitionalExtension}`;
   const code = formatter(createFileContent(dataString, filetype), filetype);
 
   return fs.promises.writeFile(normalizedPath, code);

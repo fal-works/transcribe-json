@@ -13,8 +13,9 @@ export { read, write, extract };
  */
 export const readWrite = (
   srcfile: string,
+  outfile: string,
   writeOptions: WriteOptions
-): Promise<void> => read(srcfile).then(write(writeOptions));
+): Promise<void> => read(srcfile).then(write(outfile, writeOptions));
 
 /**
  * `read()` then `extract()` then `write()`.
@@ -25,6 +26,7 @@ export const readWrite = (
 export const readExtractWrite = (
   srcfile: string,
   fields: Fields,
+  outfile: string,
   writeOptions: WriteOptions
 ): Promise<void> =>
-  read(srcfile).then(extract(fields)).then(write(writeOptions));
+  read(srcfile).then(extract(fields)).then(write(outfile, writeOptions));

@@ -1,7 +1,7 @@
 import * as fs from "fs";
 
-const parseBuffer = (arg: { buffer: ArrayBufferLike }) =>
-  JSON.parse(arg.buffer.toString()) as Record<string, unknown>;
+const parseBuffer = (buffer: Buffer) =>
+  JSON.parse(buffer.toString()) as Record<string, unknown>;
 
 /**
  * @param srcfile Filepath to any JSON file.
