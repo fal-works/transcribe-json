@@ -21,18 +21,14 @@ const printOptions = () => {
     console.log(`--${option.name.padEnd(maxLen + 2)}${option.description}`);
 };
 
-/**
- * @param {string} name
- * @param {() => void} printCallback
- */
-const printBlock = (name, printCallback) => {
+const printBlock = (name: string, printCallback: () => void) => {
   console.log(`${name}:`);
   console.group();
   printCallback();
   console.groupEnd();
 };
 
-export const help = () => {
+export const help = (): void => {
   printBlock("Command", printCommandUsage);
   printBlock("Options", printOptions);
   console.log();

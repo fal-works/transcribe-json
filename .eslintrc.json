@@ -1,6 +1,6 @@
 // https://eslint.org/docs/user-guide/configuring
 {
-  "ignorePatterns": ["lib/"],
+  "ignorePatterns": ["/lib/", "/bin/"],
 
   // config common to all
   "env": {
@@ -14,34 +14,7 @@
   },
 
   "overrides": [
-    // config with basic rules
-    {
-      "files": ["src/**/*.ts"],
-      "extends": ["eslint:recommended", "prettier"]
-    },
-
-    // config for TypeScript
-    {
-      "files": ["**/*.ts"],
-      "plugins": ["@typescript-eslint"],
-      "parser": "@typescript-eslint/parser"
-    },
-
-    // config for source code in TypeScript
-    {
-      "files": ["src/**/*.ts"],
-      "parserOptions": { "project": "tsconfig.json" },
-      "extends": [
-        "plugin:@typescript-eslint/recommended",
-        "plugin:@typescript-eslint/recommended-requiring-type-checking",
-        "prettier/@typescript-eslint"
-      ],
-      "rules": {
-        "no-fallthrough": "off" // already checked by TypeScript
-      }
-    },
-
-    // config just for pre-formatting purpose
+    // config just for all JavaScript files
     {
       "files": ["**/*.js"],
       "rules": {
@@ -57,6 +30,40 @@
           }
         ]
       }
+    },
+
+    // config for all TypeScript files
+    {
+      "files": ["**/*.ts"],
+      "plugins": ["@typescript-eslint"],
+      "parser": "@typescript-eslint/parser"
+    },
+
+    // config with basic rules
+    {
+      "files": ["src/**/*.ts"],
+      "extends": ["eslint:recommended", "prettier"]
+    },
+
+    // config for source code in TypeScript
+    {
+      "files": ["src/**/*.ts"],
+      "extends": [
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
+        "prettier/@typescript-eslint"
+      ],
+      "rules": {
+        "no-fallthrough": "off" // already checked by TypeScript
+      }
+    },
+    {
+      "files": ["src/lib/**/*.ts"],
+      "parserOptions": { "project": "src/lib/tsconfig.json" }
+    },
+    {
+      "files": ["src/bin/**/*.ts"],
+      "parserOptions": { "project": "src/bin/tsconfig.json" }
     }
   ]
 }

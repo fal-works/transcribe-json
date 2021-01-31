@@ -1,4 +1,4 @@
-import { read, extract, write } from "../lib/index.js";
+import { read, extract, write } from "../lib/lib/index.js";
 
 read("package.json")
   .then(extract(["name", "version", "license"]))
