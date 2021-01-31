@@ -1,6 +1,8 @@
+import type { JSONData } from "./json-types";
+
 import * as fs from "fs";
 import * as path from "path";
-import type { JSONData } from "./json-types";
+import { getCoalescedValue } from "./util.js";
 
 /**
  * Type of file content to emit.
@@ -70,11 +72,11 @@ export const createFileContent = (
 export const write = (outfile: string, options?: WriteOptions) => async (
   data: JSONData
 ): Promise<void> => {
-  const { filetype, replacer, space, formatter } = Object.assign(
-    {},
-    defaultWriteOptions,
-    options
-  );
+  const getOption = getCoalescedValue(options || {}, defaultWriteOptions);
+  const filetype = getOption("filetype");
+  const replacer = getOption("replacer");
+  const space = getOption("space");
+  const formatter = getOption("formatter");
 
   const dataString = JSON.stringify(data, replacer, space);
 
