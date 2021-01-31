@@ -14,7 +14,9 @@ const printOptions = () => {
       description: "Either json, mjs or cjs. (optional)",
     },
   ];
-  const maxLen = Math.max(options.map((option) => option.description.length));
+  const maxLen = Math.max(
+    ...options.map((option) => option.description.length)
+  );
   for (const option of options)
     console.log(`--${option.name.padEnd(maxLen + 2)}${option.description}`);
 };
