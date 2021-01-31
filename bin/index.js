@@ -9,6 +9,8 @@ const args = mri(process.argv.slice(2), {
     outfile: "o",
     type: "t",
   },
+  boolean: ["help", "version"],
+  string: ["outfile", "type"],
 });
 const firstArg = args._[0];
 
