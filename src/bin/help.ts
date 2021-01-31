@@ -11,7 +11,12 @@ const printOptions = () => {
     },
     {
       name: "type <type>",
-      description: "Either json, mjs or cjs. (optional)",
+      description: "The filetype to emit. Either json, mjs or cjs. (optional)",
+    },
+    {
+      name: "fields <names>",
+      description:
+        "Top-level field names to extract. Comma separated. (optional)",
     },
   ];
   const maxLen = Math.max(
