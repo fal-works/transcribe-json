@@ -5,6 +5,7 @@
 
   "compilerOptions": {
     /* Basic Options */
-    "outDir": "../bin"
+    "outDir": "../bin",
+    "checkJs": true
   }
 }

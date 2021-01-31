@@ -1,12 +1,11 @@
 {
   "name": "transcribe-json",
-  "description": "From JSON file to object. Extract any fields. From object to JSON, ES Module or CommonJS.",
+  "description": "From JSON file to object. Extract any fields. From object to JS/JSON file.",
   "version": "0.1.0",
   "license": "MIT",
   "author": "FAL",
   "keywords": [
-    "typescript",
-    "node"
+    "json"
   ],
   "homepage": "https://github.com/fal-works/transcribe-json#readme",
   "bugs": {
@@ -43,15 +42,19 @@
     "typescript": "^4.1.3"
   },
   "scripts": {
-    "build": "npm run build:lib && npm run build:bin",
+    "__ all __": "",
+    "build": "npm run build:lib && npm run build:bin && npm run update-info",
+    "__ lib __": "",
     "prebuild:lib": "rimraf lib",
     "build:lib": "tsc --build src/tsconfig.json && npm run format:lib",
     "preformat:lib": "eslint --fix --no-ignore lib/**/*.{js,ts}",
     "format:lib": "prettier --write lib/**/*.{js,ts}",
-    "prebuild:bin": "rimraf bin",
+    "__ bin __": "",
     "build:bin": "ts-transpile-modules -s src-bin -o bin --clean --target ES2020 --module ES2020 && npm run format:bin",
     "preformat:bin": "eslint --fix --no-ignore bin/**/*.{js,ts}",
     "format:bin": "prettier --write bin/**/*.{js,ts}",
+    "__ other __": "",
+    "update-info": "node bin/index.js package.json -o package-info.js -t mjs -f name,version,author,license",
     "lint": "eslint src/**/*.ts"
   }
 }

@@ -1,4 +1,5 @@
 import mri from "mri";
+import packageInfo from "../package-info.js";
 import { read, extract, write, Filetype } from "../lib/index.js";
 import { help } from "./help.js";
 
@@ -18,7 +19,7 @@ const args = mri(process.argv.slice(2), {
 const srcfile = args._[0];
 
 if (args.version) {
-  console.log("transcribe-json v0.1.0\n");
+  console.log(`${packageInfo.name} v${packageInfo.version}\n`);
   process.exit(0);
 }
 
