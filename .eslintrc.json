@@ -41,13 +41,13 @@
 
     // config with basic rules
     {
-      "files": ["src/**/*.ts"],
+      "files": ["src/**/*.ts", "src-bin/**/*.ts"],
       "extends": ["eslint:recommended", "prettier"]
     },
 
     // config for source code in TypeScript
     {
-      "files": ["src/**/*.ts"],
+      "files": ["src/**/*.ts", "src-bin/**/*.ts"],
       "extends": [
         "plugin:@typescript-eslint/recommended",
         "plugin:@typescript-eslint/recommended-requiring-type-checking",
@@ -58,12 +58,12 @@
       }
     },
     {
-      "files": ["src/lib/**/*.ts"],
-      "parserOptions": { "project": "src/lib/tsconfig.json" }
+      "files": ["src/**/*.ts"],
+      "parserOptions": { "project": "src/tsconfig.json" }
     },
     {
-      "files": ["src/bin/**/*.ts"],
-      "parserOptions": { "project": "src/bin/tsconfig.json" }
+      "files": ["src-bin/**/*.ts"],
+      "parserOptions": { "project": "src-bin/tsconfig.json" }
     }
   ]
 }

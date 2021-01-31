@@ -45,11 +45,11 @@
   "scripts": {
     "build": "npm run build:lib && npm run build:bin",
     "prebuild:lib": "rimraf lib",
-    "build:lib": "tsc --build src/lib/tsconfig.json && npm run format:lib",
+    "build:lib": "tsc --build src/tsconfig.json && npm run format:lib",
     "preformat:lib": "eslint --fix --no-ignore lib/**/*.{js,ts}",
     "format:lib": "prettier --write lib/**/*.{js,ts}",
     "prebuild:bin": "rimraf bin",
-    "build:bin": "ts-transpile-modules -s src/bin -o bin --clean --target ES2020 --module ES2020 && npm run format:bin",
+    "build:bin": "ts-transpile-modules -s src-bin -o bin --clean --target ES2020 --module ES2020 && npm run format:bin",
     "preformat:bin": "eslint --fix --no-ignore bin/**/*.{js,ts}",
     "format:bin": "prettier --write bin/**/*.{js,ts}",
     "lint": "eslint src/**/*.ts"

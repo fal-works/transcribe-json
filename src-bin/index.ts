@@ -27,6 +27,8 @@ if (args.help || !srcfile) {
   process.exit(0);
 }
 
+// ---- validate options ------------------------------------------------------
+
 const outfile = ((outfile: unknown) => {
   if (!outfile) {
     console.error(new Error("Missing option: --outfile"));
@@ -54,6 +56,8 @@ const type = ((type: unknown): Filetype | undefined => {
       process.exit(1);
   }
 })(args.type);
+
+// ---- run -------------------------------------------------------------------
 
 const run = async () => {
   let data = await read(srcfile);

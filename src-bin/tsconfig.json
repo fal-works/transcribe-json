@@ -1,10 +1,10 @@
 // https://aka.ms/tsconfig.json
 {
   "include": ["**/*.ts"],
-  "extends": "../tsconfig.json",
+  "extends": "../tsconfig.base.json",
 
   "compilerOptions": {
     /* Basic Options */
-    "outDir": "../../bin"
+    "outDir": "../bin"
   }
 }
