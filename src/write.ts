@@ -59,7 +59,7 @@ export const createFileContent = (
     case "cjs":
       return `module.exports = ${dataString}\n`;
     case "json":
-      return dataString;
+      return `${dataString}\n`;
   }
 };
 
