@@ -19,9 +19,7 @@ const printOptions = () => {
         "Top-level field names to extract. Comma separated. (optional)",
     },
   ];
-  const maxLen = Math.max(
-    ...options.map((option) => option.description.length)
-  );
+  const maxLen = Math.max(...options.map((option) => option.name.length));
   for (const option of options)
     console.log(`--${option.name.padEnd(maxLen + 2)}${option.description}`);
 };
