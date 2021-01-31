@@ -12,6 +12,7 @@
   "bugs": {
     "url": "https://github.com/fal-works/transcribe-json/issues"
   },
+  "type": "module",
   "files": [
     "lib",
     "src",
@@ -22,7 +23,7 @@
   "bin": {
     "transcribe-json": "bin/index.js"
   },
-  "type": "module",
+  "types": "lib/index.d.ts",
   "directories": {
     "lib": "lib"
   },
