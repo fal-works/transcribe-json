@@ -15,7 +15,8 @@
   "files": [
     "lib",
     "src",
-    "bin"
+    "bin",
+    "package-info.js"
   ],
   "main": "lib/index.js",
   "module": "lib/index.js",
