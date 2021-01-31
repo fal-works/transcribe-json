@@ -1,8 +1,8 @@
-import type { JSONData } from "./json-types";
+import type { JSONData } from "../common/json-types";
 
 import * as fs from "fs";
 import * as path from "path";
-import { getCoalescedValue } from "./util.js";
+import { getCoalescedValue } from "../common/util.js";
 
 /**
  * Type of file content to emit.

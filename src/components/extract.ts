@@ -1,4 +1,4 @@
-import type { JSONObject } from "./json-types";
+import type { JSONObject } from "../common/json-types";
 
 /**
  * List of field names in a JSON object.

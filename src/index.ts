@@ -1,9 +1,9 @@
-import { read } from "./read.js";
-import { WriteOptions, write } from "./write.js";
-import { Fields, extract } from "./extract.js";
+import { read } from "./components/read.js";
+import { Filetype, WriteOptions, write } from "./components/write.js";
+import { Fields, extract } from "./components/extract.js";
 
-export type { JSONObject, JSONData } from "./json-types";
-export type { Fields, WriteOptions };
+export type { JSONObject, JSONData } from "./common/json-types";
+export type { Fields, Filetype, WriteOptions };
 export { read, write, extract };
 
 /**
