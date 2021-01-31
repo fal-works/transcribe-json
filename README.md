@@ -46,10 +46,10 @@ There are also some options for `write()`:
 
 ```js
 write(outfile, {
-  replacer: null,  // used in JSON.stringify()
-  space: 2,        // used in JSON.stringify()
-  filetype: "mjs", // "json", "mjs" or "cjs"
-  formatter: (code) => code.replace(/\s/, ""), // any formatting function
+  replacer: null,   // used in JSON.stringify()
+  space: "  ",      // used in JSON.stringify()
+  filetype: "json", // "json", "mjs" or "cjs"
+  formatter: (code, filetype) => code, // any formatting function
 });
 ```
 
