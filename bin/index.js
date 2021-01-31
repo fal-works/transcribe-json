@@ -1,5 +1,5 @@
 import mri from "mri";
-import { read, write } from "../lib/index.js";
+import { read, extract, write } from "../lib/index.js";
 import { help } from "./help.js";
 
 const args = mri(process.argv.slice(2), {
@@ -8,24 +8,28 @@ const args = mri(process.argv.slice(2), {
     version: "v",
     outfile: "o",
     type: "t",
+    fields: "f",
   },
   boolean: ["help", "version"],
-  string: ["outfile", "type"],
+  string: ["outfile", "type", "fields"],
 });
-const firstArg = args._[0];
+const srcfile = args._[0];
 
 if (args.version) {
   console.log("transcribe-json v0.1.0\n");
   process.exit(0);
 }
 
-if (args._.length === 0 || args.help) {
+if (args.help) {
   help();
   process.exit(0);
 }
-
 if (args.version) {
   console.log("transcribe-json v0.1.0\n");
+  process.exit(0);
+}
+if (!srcfile) {
+  help();
   process.exit(0);
 }
 
@@ -34,21 +38,27 @@ if (!args.outfile) {
   process.exit(1);
 }
 
-if (args.type) {
-  switch (args.type) {
-    case "json":
-      break;
-    case "mjs":
-      break;
-    case "cjs":
-      break;
-    default:
-      console.error(new Error(`Invalid filetype: ${args.type}`));
-      process.exit(1);
-  }
+switch (args.type) {
+  case undefined:
+  case "json":
+  case "mjs":
+  case "cjs":
+    break;
+  default:
+    console.error(new Error(`Invalid filetype: ${args.type}`));
+    process.exit(1);
 }
 
-const writeOptions = {};
-if (args.type) writeOptions.filetype = args.type;
+/**
+ * @param {string} srcfile
+ * @param {string} [fields]
+ * @param {string} outfile
+ * @param {"json" | "mjs" | "cjs"} [filetype]
+ */
+const run = async (srcfile, outfile, fields, filetype) => {
+  let data = await read(srcfile);
+  if (fields) data = extract(fields.split(","))(data);
+  return write(outfile, { filetype })(data);
+};
 
-read(firstArg).then(write(args.outfile, writeOptions));
+run(srcfile, args.outfile, args.fields, args.filetype);
