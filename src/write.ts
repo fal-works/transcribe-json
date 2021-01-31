@@ -15,13 +15,13 @@ export type WriteOptions = {
    * Passed to `JSON.stringify()`.
    * Defaults to `null`.
    */
-  replacer: Parameters<typeof JSON.stringify>[1];
+  replacer?: Parameters<typeof JSON.stringify>[1];
 
   /**
    * Passed to `JSON.stringify()`.
    * Defaults to two spaces.
    */
-  space: Parameters<typeof JSON.stringify>[2];
+  space?: Parameters<typeof JSON.stringify>[2];
 
   /**
    * Either `"json"` (default), `"mjs"` or `"cjs"`.
@@ -67,7 +67,7 @@ export const createFileContent = (
  *
  * @param outfile The output filepath with or without extension.
  */
-export const write = (outfile: string, options: WriteOptions) => async (
+export const write = (outfile: string, options?: WriteOptions) => async (
   data: JSONData
 ): Promise<void> => {
   const { filetype, replacer, space, formatter } = Object.assign(
