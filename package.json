@@ -55,6 +55,7 @@
     "format:bin": "prettier --write bin/**/*.{js,ts}",
     "__ other __": "",
     "update-info": "node bin/index.js package.json -o package-info.js -t mjs -f name,version,author,license",
+    "postupdate-info": "prettier --write package-info.js",
     "lint": "eslint src/**/*.ts"
   }
 }
