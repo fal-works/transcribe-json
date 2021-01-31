@@ -1,5 +1,17 @@
 # transcribe-json
 
+1. From JSON file to object.
+2. Extract any fields.
+3. From object to JSON/JavaScript file.
+
+
+## Install
+
+```text
+npm install transcribe-json
+```
+
+
 ## Usage
 
 ### API
@@ -11,7 +23,7 @@ import { read, extract, write } from "transcribe-json";
 ```
 
 - `read` is async and returns the JSON file content as an object.
-- `extract` returns a function that extracts specified fields from any object (only the top-level fields can be specified).
+- `extract` returns a function that extracts fields from any object (only top-level fields can be specified).
 - `write` returns an async function that write an object to a file in JSON, ES Module or CommonJS.
 
 You can combine them as follows:
@@ -45,12 +57,14 @@ If `filetype === "mjs"`, the result will be a default export.
 
 ```js
 export default {
-  name: "transcribe-json",
-  version: "0.1.0-alpha",
+  "name": "transcribe-json",
+  "version": "0.1.0-alpha"
 };
 ```
 
 ### CLI
+
+Use `transcribe-json` command.
 
 ```text
 Command:
