@@ -55,9 +55,9 @@ export const createFileContent = (
 ): string => {
   switch (fileType) {
     case "mjs":
-      return `export default ${dataString}\n`;
+      return `export default ${dataString};\n`;
     case "cjs":
-      return `module.exports = ${dataString}\n`;
+      return `module.exports = ${dataString};\n`;
     case "json":
       return `${dataString}\n`;
   }
