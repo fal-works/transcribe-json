@@ -1,11 +1,31 @@
-import mri from "mri";
+import {
+  parse,
+  flag,
+  converters as cv,
+  converterFactories as cvf,
+  config,
+} from "cli-bespoke";
 import packageInfo from "../package-info.js";
 import { read, extract, write, Filetype } from "../lib/index.js";
-import { help } from "./help.js";
+import { printHelp } from "./help.js";
 
-const bug = () => new Error("Ran into unreachable code. Must be a bug.");
+config.onError = (err) => {
+  console.error(`[transcribe-json] ${String(err)}`);
+  process.exit(1);
+};
 
-const args = mri(process.argv.slice(2), {
+const validTypes: readonly Filetype[] = ["json", "mjs", "cjs"];
+
+const args = parse({
+  args: process.argv.slice(2),
+  convert: {
+    _: cv.optionalOne,
+    help: flag,
+    version: flag,
+    outfile: cv.justOne,
+    type: cvf.optionalOne(cvf.validValues(validTypes)),
+    fields: cvf.optional(cvf.split(",")),
+  },
   alias: {
     help: "h",
     version: "v",
@@ -13,56 +33,27 @@ const args = mri(process.argv.slice(2), {
     type: "t",
     fields: "f",
   },
-  boolean: ["help", "version"],
-  string: ["outfile", "type", "fields"],
 });
-const srcfile = args._[0];
 
-if (args.version) {
+const { _: srcfile, version, help } = args;
+
+if (version) {
   console.log(`${packageInfo.name} v${packageInfo.version}\n`);
   process.exit(0);
 }
 
-if (args.help || !srcfile) {
-  help();
+if (help || srcfile === undefined) {
+  printHelp();
   process.exit(0);
 }
 
-// ---- validate options ------------------------------------------------------
-
-const outfile = ((outfile: unknown) => {
-  if (!outfile) {
-    console.error(new Error("Missing option: --outfile"));
-    process.exit(1);
-  }
-  if (typeof outfile !== "string") throw bug();
-  return outfile;
-})(args.outfile);
-
-const fields = ((fields: unknown) => {
-  if (fields === undefined) return fields;
-  if (typeof fields !== "string") throw bug();
-  return fields.split(",");
-})(args.fields);
-
-const type = ((type: unknown): Filetype | undefined => {
-  switch (type) {
-    case undefined:
-    case "json":
-    case "mjs":
-    case "cjs":
-      return type;
-    default:
-      console.error(new Error(`Invalid filetype: ${String(type)}`));
-      process.exit(1);
-  }
-})(args.type);
-
 // ---- run -------------------------------------------------------------------
+
+const { outfile, fields, type: filetype } = args;
 
 const run = async () => {
   let data = await read(srcfile);
   if (fields) data = extract(fields)(data);
-  return write(outfile, { filetype: type })(data);
+  return write(outfile, { filetype })(data);
 };
 export default run();

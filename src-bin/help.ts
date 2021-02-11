@@ -31,7 +31,7 @@ const printBlock = (name: string, printCallback: () => void) => {
   console.groupEnd();
 };
 
-export const help = (): void => {
+export const printHelp = (): void => {
   printBlock("Command", printCommandUsage);
   printBlock("Options", printOptions);
   console.log();
