@@ -28,7 +28,7 @@
     "lib": "lib"
   },
   "dependencies": {
-    "cli-bespoke": "^0.1.1"
+    "cli-bespoke": "^0.2.0"
   },
   "devDependencies": {
     "@fal-works/ts-transpile-modules": "^0.1.3",

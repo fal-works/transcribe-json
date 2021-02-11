@@ -1,5 +1,5 @@
 import {
-  parse,
+  parseLazy,
   flag,
   converters as cv,
   converterFactories as cvf,
@@ -16,7 +16,7 @@ config.onError = (err) => {
 
 const validTypes: readonly Filetype[] = ["json", "mjs", "cjs"];
 
-const args = parse({
+const args = parseLazy({
   args: process.argv.slice(2),
   convert: {
     _: cv.optionalOne,
@@ -35,21 +35,23 @@ const args = parse({
   },
 });
 
-const { _: srcfile, version, help } = args;
+const srcfile = args._();
 
-if (version) {
+if (args.version()) {
   console.log(`${packageInfo.name} v${packageInfo.version}\n`);
   process.exit(0);
 }
 
-if (help || srcfile === undefined) {
+if (args.help() || srcfile === undefined) {
   printHelp();
   process.exit(0);
 }
 
 // ---- run -------------------------------------------------------------------
 
-const { outfile, fields, type: filetype } = args;
+const outfile = args.outfile();
+const fields = args.fields();
+const filetype = args.type();
 
 const run = async () => {
   let data = await read(srcfile);
